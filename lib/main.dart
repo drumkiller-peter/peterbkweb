@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("isDesktop ${context.isDesktop}");
     return ScreenUtilInit(
       designSize: context.isDesktop
           ? const Size(1920, 1080)

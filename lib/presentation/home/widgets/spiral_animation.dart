@@ -37,14 +37,16 @@ class _SpiralAnimationWidgetState extends State<SpiralAnimationWidget>
     return AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          final blobWidth = MediaQuery.of(context).size.width * 0.4.w;
+          final blobWidth = MediaQuery.of(context).size.width * 0.2.w;
+          final blobHeight = MediaQuery.of(context).size.height * 0.2.w;
           return CustomPaint(
-            size: Size(blobWidth, blobWidth),
+            // size: Size(blobWidth, blobWidth * 0.2),
+            size: const Size(100, 100),
             painter: CircleWithArcPainter(_controller.value),
             child: Container(
               margin: EdgeInsets.all(160.r),
               width: blobWidth,
-              height: blobWidth,
+              height: blobHeight,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: LinearGradient(

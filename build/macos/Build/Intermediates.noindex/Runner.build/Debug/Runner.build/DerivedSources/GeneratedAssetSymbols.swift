@@ -87,7 +87,7 @@ extension UIKit.UIImage {
 @available(watchOS, unavailable)
 extension ColorResource {
 
-    private init?(thinnableName: String, bundle: Bundle) {
+    private init?(thinnableName: Swift.String, bundle: Foundation.Bundle) {
 #if canImport(AppKit) && os(macOS)
         if AppKit.NSColor(named: NSColor.Name(thinnableName), bundle: bundle) != nil {
             self.init(name: thinnableName, bundle: bundle)
@@ -159,7 +159,7 @@ extension SwiftUI.ShapeStyle where Self == SwiftUI.Color {
 @available(watchOS, unavailable)
 extension ImageResource {
 
-    private init?(thinnableName: String, bundle: Bundle) {
+    private init?(thinnableName: Swift.String, bundle: Foundation.Bundle) {
 #if canImport(AppKit) && os(macOS)
         if bundle.image(forResource: NSImage.Name(thinnableName)) != nil {
             self.init(name: thinnableName, bundle: bundle)
@@ -202,16 +202,16 @@ extension UIKit.UIImage {
 // MARK: - Backwards Deployment Support -
 
 /// A color resource.
-struct ColorResource: Hashable {
+struct ColorResource: Swift.Hashable, Swift.Sendable {
 
     /// An asset catalog color resource name.
-    fileprivate let name: String
+    fileprivate let name: Swift.String
 
     /// An asset catalog color resource bundle.
-    fileprivate let bundle: Bundle
+    fileprivate let bundle: Foundation.Bundle
 
     /// Initialize a `ColorResource` with `name` and `bundle`.
-    init(name: String, bundle: Bundle) {
+    init(name: Swift.String, bundle: Foundation.Bundle) {
         self.name = name
         self.bundle = bundle
     }
@@ -219,16 +219,16 @@ struct ColorResource: Hashable {
 }
 
 /// An image resource.
-struct ImageResource: Hashable {
+struct ImageResource: Swift.Hashable, Swift.Sendable {
 
     /// An asset catalog image resource name.
-    fileprivate let name: String
+    fileprivate let name: Swift.String
 
     /// An asset catalog image resource bundle.
-    fileprivate let bundle: Bundle
+    fileprivate let bundle: Foundation.Bundle
 
     /// Initialize an `ImageResource` with `name` and `bundle`.
-    init(name: String, bundle: Bundle) {
+    init(name: Swift.String, bundle: Foundation.Bundle) {
         self.name = name
         self.bundle = bundle
     }
