@@ -2,7 +2,7 @@
 .dart_tool/flutter_build/
 **.fileCache/
 
-.env
+.env/
 
 
 

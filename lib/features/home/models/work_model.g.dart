@@ -11,6 +11,7 @@ _$WorkModelImpl _$$WorkModelImplFromJson(Map<String, dynamic> json) =>
       projectName: json['projectName'] as String,
       imageUrl: json['imageUrl'] as String,
       description: json['description'] as String,
+      position: json['position'] as String?,
       videoUrl: json['videoUrl'] as String?,
     );
 
@@ -19,5 +20,6 @@ Map<String, dynamic> _$$WorkModelImplToJson(_$WorkModelImpl instance) =>
       'projectName': instance.projectName,
       'imageUrl': instance.imageUrl,
       'description': instance.description,
+      'position': instance.position,
       'videoUrl': instance.videoUrl,
     };

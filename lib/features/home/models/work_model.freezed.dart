@@ -23,6 +23,7 @@ mixin _$WorkModel {
   String get projectName => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  String? get position => throw _privateConstructorUsedError;
   String? get videoUrl => throw _privateConstructorUsedError;
 
   /// Serializes this WorkModel to a JSON map.
@@ -44,6 +45,7 @@ abstract class $WorkModelCopyWith<$Res> {
       {String projectName,
       String imageUrl,
       String description,
+      String? position,
       String? videoUrl});
 }
 
@@ -65,6 +67,7 @@ class _$WorkModelCopyWithImpl<$Res, $Val extends WorkModel>
     Object? projectName = null,
     Object? imageUrl = null,
     Object? description = null,
+    Object? position = freezed,
     Object? videoUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -80,6 +83,10 @@ class _$WorkModelCopyWithImpl<$Res, $Val extends WorkModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as String?,
       videoUrl: freezed == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
@@ -100,6 +107,7 @@ abstract class _$$WorkModelImplCopyWith<$Res>
       {String projectName,
       String imageUrl,
       String description,
+      String? position,
       String? videoUrl});
 }
 
@@ -119,6 +127,7 @@ class __$$WorkModelImplCopyWithImpl<$Res>
     Object? projectName = null,
     Object? imageUrl = null,
     Object? description = null,
+    Object? position = freezed,
     Object? videoUrl = freezed,
   }) {
     return _then(_$WorkModelImpl(
@@ -134,6 +143,10 @@ class __$$WorkModelImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as String?,
       videoUrl: freezed == videoUrl
           ? _value.videoUrl
           : videoUrl // ignore: cast_nullable_to_non_nullable
@@ -149,6 +162,7 @@ class _$WorkModelImpl implements _WorkModel {
       {required this.projectName,
       required this.imageUrl,
       required this.description,
+      this.position,
       this.videoUrl});
 
   factory _$WorkModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -161,11 +175,13 @@ class _$WorkModelImpl implements _WorkModel {
   @override
   final String description;
   @override
+  final String? position;
+  @override
   final String? videoUrl;
 
   @override
   String toString() {
-    return 'WorkModel(projectName: $projectName, imageUrl: $imageUrl, description: $description, videoUrl: $videoUrl)';
+    return 'WorkModel(projectName: $projectName, imageUrl: $imageUrl, description: $description, position: $position, videoUrl: $videoUrl)';
   }
 
   @override
@@ -179,14 +195,16 @@ class _$WorkModelImpl implements _WorkModel {
                 other.imageUrl == imageUrl) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
             (identical(other.videoUrl, videoUrl) ||
                 other.videoUrl == videoUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, projectName, imageUrl, description, videoUrl);
+  int get hashCode => Object.hash(
+      runtimeType, projectName, imageUrl, description, position, videoUrl);
 
   /// Create a copy of WorkModel
   /// with the given fields replaced by the non-null parameter values.
@@ -209,6 +227,7 @@ abstract class _WorkModel implements WorkModel {
       {required final String projectName,
       required final String imageUrl,
       required final String description,
+      final String? position,
       final String? videoUrl}) = _$WorkModelImpl;
 
   factory _WorkModel.fromJson(Map<String, dynamic> json) =
@@ -220,6 +239,8 @@ abstract class _WorkModel implements WorkModel {
   String get imageUrl;
   @override
   String get description;
+  @override
+  String? get position;
   @override
   String? get videoUrl;
 

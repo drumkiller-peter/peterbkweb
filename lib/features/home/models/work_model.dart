@@ -9,6 +9,7 @@ class WorkModel with _$WorkModel {
     required String projectName,
     required String imageUrl,
     required String description,
+    String? position,
     String? videoUrl,
   }) = _WorkModel;
 
