@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:peterbk/presentation/home/pages/home.dart';
+import 'package:peterbk/features/home/pages/home.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
