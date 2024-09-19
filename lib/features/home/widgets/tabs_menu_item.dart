@@ -24,7 +24,7 @@ class TabsMenuItem extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.quicksand(
-          fontSize: 20.sp,
+          fontSize: 32.sp,
           fontWeight: FontWeight.w500,
           color: isSelected
               ? AppColors.primaryColorStroke

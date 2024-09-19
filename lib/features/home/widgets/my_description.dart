@@ -24,7 +24,7 @@ class MyDescription extends StatelessWidget {
             ),
           ),
           Text(
-            "My name is Peter Bk",
+            "My name is Peter Bk ${MediaQuery.sizeOf(context).width} ${MediaQuery.sizeOf(context).height}",
             style: GoogleFonts.quicksand(
               fontSize: 20.sp,
               color: AppColors.white,

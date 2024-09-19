@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:peterbk/configs/extensions/build_context_extension.dart';
+import 'package:peterbk/configs/initializers/initialisers.dart';
 import 'package:peterbk/configs/router/app_router.dart';
 import 'package:peterbk/configs/theme/app_colors.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  initServices();
   runApp(const MyApp());
 }
 

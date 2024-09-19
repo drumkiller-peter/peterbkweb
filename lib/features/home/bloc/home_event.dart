@@ -10,3 +10,5 @@ class HomeEventInViewRequested extends HomeEvent {
     required this.inViewEnum,
   });
 }
+
+class HomeEventFetchWorkDataRequested extends HomeEvent {}

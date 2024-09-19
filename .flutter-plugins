@@ -4,4 +4,6 @@ path_provider_android=/Users/peterbk/.pub-cache/hosted/pub.dev/path_provider_and
 path_provider_foundation=/Users/peterbk/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.0/
 path_provider_linux=/Users/peterbk/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
 path_provider_windows=/Users/peterbk/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0/
+screen_retriever=/Users/peterbk/.pub-cache/hosted/pub.dev/screen_retriever-0.1.9/
 sqflite=/Users/peterbk/.pub-cache/hosted/pub.dev/sqflite-2.3.3+1/
+window_manager=/Users/peterbk/.pub-cache/hosted/pub.dev/window_manager-0.4.2/
