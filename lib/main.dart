@@ -19,11 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     print("isDesktop ${context.isDesktop}");
     return ScreenUtilInit(
-      designSize: context.isDesktop
-          ? const Size(1920, 1080)
-          : context.isTablet
-              ? const Size(768, 1024)
-              : const Size(360, 690),
+      designSize: _getDesignSize(context),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp.router(
@@ -32,11 +28,30 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
           useMaterial3: true,
           scaffoldBackgroundColor: AppColors.secondaryColor,
-          fontFamily: GoogleFonts.quicksand().fontFamily,
-          textTheme: GoogleFonts.quicksandTextTheme(),
+          fontFamily: GoogleFonts.cutiveMono().fontFamily,
+          textTheme: GoogleFonts.cutiveMonoTextTheme(),
         ),
         routerConfig: AppRouter.router,
       ),
     );
+  }
+
+  Size _getDesignSize(BuildContext context) {
+    if (context.isLargeDesktop) {
+      return const Size(1400, 900);
+    } else if (context.isDesktop) {
+      return const Size(1200, 800);
+    } else if (context.isTablet) {
+      return const Size(992, 768);
+    } else if (context.isLargeMobile) {
+      return const Size(768, 600);
+    } else if (context.isStandardMobile) {
+      return const Size(576, 480);
+    } else if (context.isSmallMobile) {
+      return const Size(280, 500);
+    } else {
+      // Wearables and small mobile devices
+      return const Size(280, 280);
+    }
   }
 }

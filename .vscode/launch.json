@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Peter Bk Desktop (Debug)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+            "deviceId": "macos"
+        },
+        {
+            "name": "Peter Bk (Debug)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+        },
+    ]
+}

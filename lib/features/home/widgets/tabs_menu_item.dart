@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:peterbk/configs/extensions/build_context_extension.dart';
 import 'package:peterbk/configs/theme/app_colors.dart';
 
 class TabsMenuItem extends StatelessWidget {
@@ -23,8 +24,8 @@ class TabsMenuItem extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: GoogleFonts.quicksand(
-          fontSize: 32.sp,
+        style: GoogleFonts.cutiveMono(
+          fontSize: context.isCommonMobile ? 15.sp : 32.sp,
           fontWeight: FontWeight.w500,
           color: isSelected
               ? AppColors.primaryColorStroke

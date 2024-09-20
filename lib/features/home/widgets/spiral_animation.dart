@@ -7,7 +7,10 @@ import 'package:peterbk/shared/painters/circle_with_arc_painter.dart';
 class SpiralAnimationWidget extends StatefulWidget {
   const SpiralAnimationWidget({
     super.key,
+    this.size,
   });
+
+  final Size? size;
 
   @override
   State<SpiralAnimationWidget> createState() => _SpiralAnimationWidgetState();
@@ -37,12 +40,16 @@ class _SpiralAnimationWidgetState extends State<SpiralAnimationWidget>
     return AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          final blobWidth = MediaQuery.of(context).size.width * 0.4.w;
+          final blobWidth =
+              widget.size?.width ?? MediaQuery.of(context).size.width * 0.2.w;
+          final blobHeight =
+              widget.size?.height ?? MediaQuery.of(context).size.height;
           return CustomPaint(
-            size: const Size(double.infinity, double.infinity),
+            size: Size(widget.size?.width ?? blobWidth,
+                widget.size?.width ?? blobHeight),
             painter: CircleWithArcPainter(_controller.value),
             child: Container(
-              margin: EdgeInsets.all(160.r),
+              margin: EdgeInsets.all(blobWidth * 0.2.r),
               width: blobWidth,
               height: blobWidth,
               decoration: BoxDecoration(

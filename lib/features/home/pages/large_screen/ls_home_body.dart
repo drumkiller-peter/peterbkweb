@@ -2,25 +2,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 import 'package:peterbk/configs/constants/app_constants.dart';
 import 'package:peterbk/features/home/bloc/home_bloc.dart';
-import 'package:peterbk/features/home/widgets/main_work_body.dart';
+import 'package:peterbk/features/home/pages/large_screen/ls_work_body.dart';
 import 'package:peterbk/features/home/widgets/my_description.dart';
 import 'package:peterbk/features/home/widgets/spiral_animation.dart';
 import 'package:peterbk/features/home/widgets/tabs_menu.dart';
 
-class MainHomeBody extends StatefulWidget {
-  const MainHomeBody({
+class LSHomeBody extends StatefulWidget {
+  const LSHomeBody({
     super.key,
   });
 
   @override
-  State<MainHomeBody> createState() => _MainHomeBodyState();
+  State<LSHomeBody> createState() => _LSHomeBodyState();
 }
 
-class _MainHomeBodyState extends State<MainHomeBody>
-    with TickerProviderStateMixin {
+class _LSHomeBodyState extends State<LSHomeBody> with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _workController;
   late Animation<Offset> _animation;
@@ -41,7 +39,7 @@ class _MainHomeBodyState extends State<MainHomeBody>
 
     _animation = Tween<Offset>(
       begin: const Offset(0.0, 0.0),
-      end: const Offset(-0.7, 0.0),
+      end: const Offset(-0.8, 0.0),
     ).animate(_controller);
 
     _workAnimation = Tween<Offset>(
@@ -68,12 +66,12 @@ class _MainHomeBodyState extends State<MainHomeBody>
           height: height,
           width: width,
           child: Stack(
-            clipBehavior: Clip.hardEdge,
+            // clipBehavior: Clip.hardEdge,
             children: [
               AnimatedPositioned(
                 top: height * 0.2.h,
                 left: state.inViewEnum == InViewEnum.work
-                    ? -width * 0.3.w
+                    ? -width * 0.25.w
                     : width * 0.4.w,
                 duration: animationDuration,
                 child: const SpiralAnimationWidget(),
@@ -88,7 +86,7 @@ class _MainHomeBodyState extends State<MainHomeBody>
                           const ScrollBehavior().copyWith(overscroll: false),
                       child: Column(
                         children: [
-                          Gap(height * 0.4),
+                          const Spacer(),
                           Row(
                             children: [
                               const MyDescription(),
@@ -111,6 +109,7 @@ class _MainHomeBodyState extends State<MainHomeBody>
                               ),
                             ],
                           ),
+                          const Spacer(),
                         ],
                       ),
                     ),
@@ -118,13 +117,17 @@ class _MainHomeBodyState extends State<MainHomeBody>
                 },
               ),
               Positioned.fill(
-                left: width * 0.4.h,
-                child: AnimatedOpacity(
-                  duration: animationDuration,
-                  opacity: state.inViewEnum == InViewEnum.work ? 1.0 : 0.0,
-                  child: SlideTransition(
-                    position: _workAnimation,
-                    child: const MainWorkBody(),
+                left: width * 0.3.h,
+                right: width * 0.1.h,
+                child: Container(
+                  // color: Colors.red,
+                  child: AnimatedOpacity(
+                    duration: animationDuration,
+                    opacity: state.inViewEnum == InViewEnum.work ? 1.0 : 0.0,
+                    child: SlideTransition(
+                      position: _workAnimation,
+                      child: const LSWorkBody(),
+                    ),
                   ),
                 ),
               ),
