@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peterbk/configs/constants/app_constants.dart';
+import 'package:peterbk/configs/extensions/build_context_extension.dart';
 import 'package:peterbk/features/home/bloc/home_bloc.dart';
 import 'package:peterbk/features/home/pages/large_screen/ls_work_body.dart';
 import 'package:peterbk/features/home/widgets/my_description.dart';
@@ -46,6 +47,15 @@ class _LSHomeBodyState extends State<LSHomeBody> with TickerProviderStateMixin {
       begin: const Offset(0.0, 1.0),
       end: const Offset(0.0, 0.0),
     ).animate(_workController);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (context.isCommonDesktop ||
+          context.isTablet &&
+              context.read<HomeBloc>().state.inViewEnum == InViewEnum.work) {
+        _workController.forward();
+        _controller.forward();
+      }
+    });
   }
 
   @override
@@ -76,6 +86,7 @@ class _LSHomeBodyState extends State<LSHomeBody> with TickerProviderStateMixin {
                 duration: animationDuration,
                 child: const SpiralAnimationWidget(),
               ),
+              // if (state.inViewEnum == InViewEnum.home)
               AnimatedBuilder(
                 animation: _controller,
                 builder: (context, child) {
@@ -116,11 +127,10 @@ class _LSHomeBodyState extends State<LSHomeBody> with TickerProviderStateMixin {
                   );
                 },
               ),
-              Positioned.fill(
-                left: width * 0.3.h,
-                right: width * 0.1.h,
-                child: Container(
-                  // color: Colors.red,
+              if (state.inViewEnum == InViewEnum.work)
+                Positioned.fill(
+                  left: width * 0.3.h,
+                  right: width * 0.1.h,
                   child: AnimatedOpacity(
                     duration: animationDuration,
                     opacity: state.inViewEnum == InViewEnum.work ? 1.0 : 0.0,
@@ -130,7 +140,6 @@ class _LSHomeBodyState extends State<LSHomeBody> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         );

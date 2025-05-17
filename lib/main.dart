@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("isDesktop ${context.isDesktop}");
+    print(
+        "isDesktop ${context.isDesktop} isCommonDesktop ${context.isCommonDesktop} isTablet ${context.isTablet} isWearable ${context.isWearable} isMobile ${context.isMobile} isPortrait ${context.isPortraitLike} width ${MediaQuery.of(context).size.width} height ${MediaQuery.of(context).size.height}");
     return ScreenUtilInit(
       designSize: _getDesignSize(context),
       minTextAdapt: true,
@@ -37,21 +38,20 @@ class MyApp extends StatelessWidget {
   }
 
   Size _getDesignSize(BuildContext context) {
-    if (context.isLargeDesktop) {
-      return const Size(1400, 900);
-    } else if (context.isDesktop) {
-      return const Size(1200, 800);
+    if (context.isDesktop) {
+      return context.isPortraitLike
+          ? const Size(834, 1194)
+          : const Size(1194, 834);
     } else if (context.isTablet) {
-      return const Size(992, 768);
-    } else if (context.isLargeMobile) {
-      return const Size(768, 600);
-    } else if (context.isStandardMobile) {
-      return const Size(576, 480);
-    } else if (context.isSmallMobile) {
-      return const Size(280, 500);
+      return context.isPortraitLike
+          ? const Size(600, 1024)
+          : const Size(1024, 600);
+    } else if (context.isWearable) {
+      return const Size(192, 192);
     } else {
-      // Wearables and small mobile devices
-      return const Size(280, 280);
+      return context.isPortraitLike
+          ? const Size(360, 690)
+          : const Size(690, 360);
     }
   }
 }

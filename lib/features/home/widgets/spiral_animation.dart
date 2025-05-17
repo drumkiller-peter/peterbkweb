@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peterbk/configs/extensions/build_context_extension.dart';
 import 'package:peterbk/configs/theme/app_colors.dart';
 import 'package:peterbk/shared/painters/circle_with_arc_painter.dart';
 
@@ -40,8 +41,12 @@ class _SpiralAnimationWidgetState extends State<SpiralAnimationWidget>
     return AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          final blobWidth =
-              widget.size?.width ?? MediaQuery.of(context).size.width * 0.2.w;
+          final blobWidth = widget.size?.width ??
+              (context.isTablet
+                  ? 400
+                  : context.isCommonDesktop
+                      ? 400
+                      : MediaQuery.of(context).size.width * 0.3.w);
           final blobHeight =
               widget.size?.height ?? MediaQuery.of(context).size.height;
           return CustomPaint(

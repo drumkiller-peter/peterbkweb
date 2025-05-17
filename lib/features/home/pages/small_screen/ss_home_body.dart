@@ -3,58 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peterbk/configs/constants/app_constants.dart';
+import 'package:peterbk/configs/extensions/build_context_extension.dart';
+import 'package:peterbk/configs/theme/app_colors.dart';
 import 'package:peterbk/features/home/bloc/home_bloc.dart';
-import 'package:peterbk/features/home/pages/large_screen/ls_work_body.dart';
+import 'package:peterbk/features/home/pages/small_screen/ss_work_body.dart';
 import 'package:peterbk/features/home/widgets/my_description.dart';
 import 'package:peterbk/features/home/widgets/spiral_animation.dart';
 
 class SSHomeBody extends StatefulWidget {
   const SSHomeBody({
     super.key,
+    required this.controller,
+    required this.workController,
+    required this.animation,
+    required this.workAnimation,
   });
+
+  final AnimationController controller;
+  final AnimationController workController;
+  final Animation<Offset> animation;
+  final Animation<Offset> workAnimation;
 
   @override
   State<SSHomeBody> createState() => _SSHomeBodyState();
 }
 
-class _SSHomeBodyState extends State<SSHomeBody> with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late AnimationController _workController;
-  late Animation<Offset> _animation;
-  late Animation<Offset> _workAnimation;
-
+class _SSHomeBodyState extends State<SSHomeBody> {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: animationDuration,
-      vsync: this,
-    );
-
-    _workController = AnimationController(
-      duration: animationDuration,
-      vsync: this,
-    );
-
-    _animation = Tween<Offset>(
-      begin: const Offset(0.0, 0.0),
-      end: const Offset(-0.8, 0.0),
-    ).animate(_controller);
-
-    _workAnimation = Tween<Offset>(
-      begin: const Offset(0.0, 1.0),
-      end: const Offset(0.0, 0.0),
-    ).animate(_workController);
-
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (context.isMobile) {
+        widget.workController.forward();
+      }
+    });
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-    _workController.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,66 +53,72 @@ class _SSHomeBodyState extends State<SSHomeBody> with TickerProviderStateMixin {
             // clipBehavior: Clip.hardEdge,
             children: [
               AnimatedPositioned(
-                top: height * 0.1.h,
-                left: state.inViewEnum == InViewEnum.work
-                    ? -width * 0.25.w
-                    : width * 0.2.w,
+                top: height < 600 ? 50 : 200,
+                left:
+                    state.inViewEnum == InViewEnum.work ? -width * 0.25.w : 100,
                 duration: animationDuration,
                 child: SpiralAnimationWidget(
-                  size: Size(393.w, 852.h),
+                  size: Size(300.w, 300.h),
                 ),
               ),
               AnimatedBuilder(
-                animation: _controller,
+                animation: widget.controller,
                 builder: (context, child) {
-                  return SlideTransition(
-                    position: _animation,
-                    child: MyDescription(
-                      screenPadding: EdgeInsets.only(
-                        left: 16.w,
-                        top: kToolbarHeight * 3,
+                  return AnimatedOpacity(
+                    duration: animationDuration,
+                    opacity: state.inViewEnum == InViewEnum.home ? 1.0 : 0.0,
+                    child: SlideTransition(
+                      position: widget.animation,
+                      child: MyDescription(
+                        screenPadding: EdgeInsets.only(
+                          left: 16.w,
+                          top: kToolbarHeight * 3,
+                        ),
                       ),
+                      // Row(
+                      //   children: [
+                      //     const MyDescription(),
+                      //     const Spacer(),
+                      //     TabsMenu(
+                      //       onPressedHome: () {
+                      //         context.read<HomeBloc>().add(
+                      //             HomeEventInViewRequested(
+                      //                 inViewEnum: InViewEnum.home));
+                      //         _workController.reverse();
+                      //         _controller.reverse();
+                      //       },
+                      //       onPressedWork: () {
+                      //         context.read<HomeBloc>().add(
+                      //             HomeEventInViewRequested(
+                      //                 inViewEnum: InViewEnum.work));
+                      //         _controller.forward();
+                      //         _workController.forward();
+                      //       },
+                      //     ),
+                      //   ],
+                      // ),
                     ),
-                    // Row(
-                    //   children: [
-                    //     const MyDescription(),
-                    //     const Spacer(),
-                    //     TabsMenu(
-                    //       onPressedHome: () {
-                    //         context.read<HomeBloc>().add(
-                    //             HomeEventInViewRequested(
-                    //                 inViewEnum: InViewEnum.home));
-                    //         _workController.reverse();
-                    //         _controller.reverse();
-                    //       },
-                    //       onPressedWork: () {
-                    //         context.read<HomeBloc>().add(
-                    //             HomeEventInViewRequested(
-                    //                 inViewEnum: InViewEnum.work));
-                    //         _controller.forward();
-                    //         _workController.forward();
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
                   );
                 },
               ),
-              Positioned.fill(
-                left: width * 0.3.h,
-                right: width * 0.1.h,
-                child: Container(
-                  // color: Colors.red,
-                  child: AnimatedOpacity(
+              // const Positioned.fill(child: SSWorkBody()),
+              if (state.inViewEnum == InViewEnum.work)
+                Positioned.fill(
+                  child: AnimatedContainer(
                     duration: animationDuration,
-                    opacity: state.inViewEnum == InViewEnum.work ? 1.0 : 0.0,
-                    child: SlideTransition(
-                      position: _workAnimation,
-                      child: const LSWorkBody(),
+                    color: state.inViewEnum == InViewEnum.work
+                        ? AppColors.secondaryColor
+                        : Colors.transparent,
+                    child: AnimatedOpacity(
+                      duration: animationDuration,
+                      opacity: state.inViewEnum == InViewEnum.work ? 1.0 : 0.0,
+                      child: SlideTransition(
+                        position: widget.workAnimation,
+                        child: const SSWorkBody(),
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         );

@@ -1,5 +1,6 @@
-import 'package:bloc/bloc.dart';
+
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peterbk/configs/initializers/initialisers.dart';
 import 'package:peterbk/features/home/data/work_repository.dart';
 import 'package:peterbk/features/home/models/work_model.dart';

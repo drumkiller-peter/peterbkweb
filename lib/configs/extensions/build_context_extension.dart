@@ -3,41 +3,56 @@ import 'package:flutter/material.dart';
 extension BuildContextExtension on BuildContext {
   bool get isWearable => MediaQuery.of(this).size.width <= 280;
 
-  bool get isSmallMobile =>
-      MediaQuery.of(this).size.width > 280 &&
-      MediaQuery.of(this).size.width < 576;
+  // Portrait mode breakpoints
+  static const int portraitMobileMaxWidth = 600;
+  static const int portraitTabletMaxWidth = 1024;
+  static const int portraitDesktopMaxWidth = 1400;
 
-  bool get isStandardMobile =>
-      MediaQuery.of(this).size.width >= 576 &&
-      MediaQuery.of(this).size.width < 768;
+  // Landscape mode breakpoints
+  static const int landscapeMobileMaxHeight = 300;
+  static const int landscapeTabletMaxHeight = 800;
+  static const int landscapeDesktopMaxHeight = 1000;
 
-  bool get isLargeMobile =>
-      MediaQuery.of(this).size.width >= 768 &&
-      MediaQuery.of(this).size.width < 992;
+  Size get _screenSize => MediaQuery.of(this).size;
 
-  bool get isTablet =>
-      MediaQuery.of(this).size.width >= 992 &&
-      MediaQuery.of(this).size.width < 1200;
+  /// Use this instead of `MediaQuery.orientation` to support web/desktop
+  bool get isPortraitLike => _screenSize.height >= _screenSize.width;
 
-  bool get isDesktop =>
-      MediaQuery.of(this).size.width >= 1200 &&
-      MediaQuery.of(this).size.width < 1400;
+  bool get isMobile {
+    return isPortraitLike
+        ? _screenSize.width <= portraitMobileMaxWidth
+        : _screenSize.height <= landscapeMobileMaxHeight;
+  }
 
-  bool get isLargeDesktop => MediaQuery.of(this).size.width >= 1400;
+  bool get isTablet {
+    return isPortraitLike
+        ? _screenSize.width > portraitMobileMaxWidth &&
+            _screenSize.width <= portraitTabletMaxWidth
+        : _screenSize.height > landscapeMobileMaxHeight &&
+            _screenSize.height <= landscapeTabletMaxHeight;
+  }
 
-  /// Treating every Mobile and Tablets as one.
-  bool get isCommonMobile =>
-      isLargeMobile ||
-      isTablet ||
-      isLargeMobile ||
-      isSmallMobile ||
-      isStandardMobile;
+  bool get isDesktop {
+    return isPortraitLike
+        ? _screenSize.width > portraitTabletMaxWidth &&
+            _screenSize.width <= portraitDesktopMaxWidth
+        : _screenSize.height > landscapeTabletMaxHeight &&
+            _screenSize.height <= landscapeDesktopMaxHeight;
+  }
+
+  bool get isLargeDesktop {
+    return isPortraitLike
+        ? _screenSize.width > portraitDesktopMaxWidth
+        : _screenSize.height > landscapeDesktopMaxHeight;
+  }
+
+  bool get isCommonDesktop => isDesktop || isLargeDesktop;
 
   String get deviceType {
     if (isWearable) return "Wearable";
-    if (isSmallMobile) return "Small Mobile";
-    if (isStandardMobile) return "Standard Mobile";
-    if (isLargeMobile) return "Large Mobile";
+
+    if (isMobile) return "Standard Mobile";
+
     if (isTablet) return "Tablet";
     if (isDesktop) return "Desktop";
     if (isLargeDesktop) return "Large Desktop";

@@ -17,10 +17,16 @@ class MyDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final textBoxWidth = context.isCommonMobile ? width * 0.7 : width * 0.25;
+    final textBoxWidth =
+        context.isMobile || context.isTablet ? width * 0.7 : width * 0.25;
     return Padding(
       padding: screenPadding ??
-          EdgeInsets.only(left: context.isCommonMobile ? 16.w : 112.w),
+          EdgeInsets.only(
+              left: context.isMobile
+                  ? 16.w
+                  : context.isTablet
+                      ? 32.w
+                      : 112.w),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +35,7 @@ class MyDescription extends StatelessWidget {
             Text(
               "Hello.",
               style: GoogleFonts.cutiveMono(
-                fontSize: context.isCommonMobile ? 22.sp : 127.sp,
+                fontSize: context.isMobile ? 22.sp : 127.sp,
                 color: AppColors.white,
                 fontWeight: FontWeight.w300,
               ),
@@ -37,9 +43,9 @@ class MyDescription extends StatelessWidget {
             SizedBox(
               width: textBoxWidth,
               child: Text(
-                "My name is Peter Bk ${MediaQuery.sizeOf(context).width} ${MediaQuery.sizeOf(context).height}",
+                "My name is Peter Bk",
                 style: GoogleFonts.cutiveMono(
-                  fontSize: context.isCommonMobile ? 15.sp : 20.sp,
+                  fontSize: context.isMobile ? 15.sp : 20.sp,
                   color: AppColors.white,
                   fontWeight: FontWeight.w300,
                 ),
@@ -51,7 +57,7 @@ class MyDescription extends StatelessWidget {
               child: Text(
                 "I am a Flutter developer with 4 years of experience in building cross-platform mobile apps. Currently at WebPoint Solutions, I specialize in creating intuitive interfaces and integrating APIs. Follow my Flutter insights on Instagram @highinflutter.",
                 style: GoogleFonts.cutiveMono(
-                  fontSize: context.isCommonMobile ? 15.sp : 20.sp,
+                  fontSize: context.isMobile ? 15.sp : 20.sp,
                   color: AppColors.white,
                   fontWeight: FontWeight.w300,
                 ),

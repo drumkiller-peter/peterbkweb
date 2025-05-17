@@ -1,14 +1,21 @@
 {
     "configurations": [
         {
-            "name": "Peter Bk Desktop (Debug)",
+            "name": "MacOs (Debug)",
             "request": "launch",
             "program": "lib/main.dart",
             "type": "dart",
             "deviceId": "macos"
         },
         {
-            "name": "Peter Bk (Debug)",
+            "name": "Chrome (Debug)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+            "deviceId": "chrome"
+        },
+        {
+            "name": "(Debug)",
             "request": "launch",
             "program": "lib/main.dart",
             "type": "dart",

@@ -120,15 +120,12 @@ class _MSHomeBodyState extends State<MSHomeBody> with TickerProviderStateMixin {
               Positioned.fill(
                 left: width * 0.3.h,
                 right: width * 0.1.h,
-                child: Container(
-                  // color: Colors.red,
-                  child: AnimatedOpacity(
-                    duration: animationDuration,
-                    opacity: state.inViewEnum == InViewEnum.work ? 1.0 : 0.0,
-                    child: SlideTransition(
-                      position: _workAnimation,
-                      child: const LSWorkBody(),
-                    ),
+                child: AnimatedOpacity(
+                  duration: animationDuration,
+                  opacity: state.inViewEnum == InViewEnum.work ? 1.0 : 0.0,
+                  child: SlideTransition(
+                    position: _workAnimation,
+                    child: const LSWorkBody(),
                   ),
                 ),
               ),

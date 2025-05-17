@@ -30,13 +30,7 @@ class SSWorkBody extends StatelessWidget {
         if (state.homeStateEnum == HomeStateEnum.loaded) {
           final workList = state.workList!;
 
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1, // Adjust the number of columns as needed
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
-              childAspectRatio: 2.5, // Adjust this ratio as needed
-            ),
+          return ListView.builder(
             itemCount: workList.length,
             itemBuilder: (context, index) {
               final imageWidget = Padding(
@@ -55,7 +49,7 @@ class SSWorkBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Spacer(),
+                    // const Spacer(),
                     Text(
                       "${index + 1}. ${workList[index].projectName}",
                       style: GoogleFonts.cutiveMono(
@@ -63,21 +57,19 @@ class SSWorkBody extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: AppColors.white,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      // maxLines: 2,
+                      // overflow: TextOverflow.ellipsis,
                     ),
                     Gap(4.h),
-                    Expanded(
-                      child: Text(
-                        workList[index].description,
-                        style: GoogleFonts.cutiveMono(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w300,
-                          color: AppColors.white,
-                        ),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
+                    Text(
+                      workList[index].description,
+                      style: GoogleFonts.cutiveMono(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w300,
+                        color: AppColors.white,
                       ),
+                      // overflow: TextOverflow.ellipsis,
+                      maxLines: null,
                     ),
                   ],
                 ),
@@ -85,8 +77,8 @@ class SSWorkBody extends StatelessWidget {
               final item = Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(child: index.isEven ? imageWidget : textWidget),
-                  Expanded(child: index.isOdd ? imageWidget : textWidget),
+                  SizedBox(height: 100.h, child: imageWidget),
+                  Expanded(child: textWidget),
                 ],
               );
               return InkWell(
