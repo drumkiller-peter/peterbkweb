@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "MacOs (Debug)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+            "deviceId": "macos"
+        },
+        {
+            "name": "Chrome (Debug)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+            "deviceId": "chrome"
+        },
+        {
+            "name": "(Debug)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+        },
+    ]
+}

@@ -8,8 +8,8 @@ import 'package:peterbk/configs/theme/app_colors.dart';
 import 'package:peterbk/features/home/bloc/home_bloc.dart';
 import 'package:peterbk/gen/assets.gen.dart';
 
-class MainWorkBody extends StatelessWidget {
-  const MainWorkBody({super.key});
+class LSWorkBody extends StatelessWidget {
+  const LSWorkBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +29,18 @@ class MainWorkBody extends StatelessWidget {
 
         if (state.homeStateEnum == HomeStateEnum.loaded) {
           final workList = state.workList!;
-          final contentHeight = 300.h;
-          final contentWidth = 493.w;
-          return ListView.builder(
+
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1, // Adjust the number of columns as needed
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 2.5, // Adjust this ratio as needed
+            ),
             itemCount: workList.length,
             itemBuilder: (context, index) {
-              final imageWidget = Container(
-                color: AppColors.textDisabled.withOpacity(0.1),
+              final imageWidget = Padding(
                 padding: const EdgeInsets.all(8.0),
-                height: contentHeight,
-                width: contentWidth,
                 child: workList[index].imageUrl.isEmpty
                     ? SvgPicture.asset(
                         Assets.images.svg.logo,
@@ -47,45 +49,44 @@ class MainWorkBody extends StatelessWidget {
                         workList[index].imageUrl,
                       ),
               );
-              final textWidget = SizedBox(
-                height: contentHeight,
-                width: contentWidth,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        workList[index].projectName,
-                        style: GoogleFonts.quicksand(
-                          fontSize: 54.sp,
-                          fontWeight: FontWeight.w600,
+              final textWidget = Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    Text(
+                      "${index + 1}. ${workList[index].projectName}",
+                      style: GoogleFonts.cutiveMono(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Gap(4.h),
+                    Expanded(
+                      child: Text(
+                        workList[index].description,
+                        style: GoogleFonts.cutiveMono(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w300,
                           color: AppColors.white,
                         ),
-                        maxLines: 2,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Gap(4.h),
-                      Expanded(
-                        child: Text(
-                          workList[index].description,
-                          style: GoogleFonts.quicksand(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w300,
-                            color: AppColors.white,
-                          ),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
               final item = Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  index.isEven ? imageWidget : textWidget,
-                  index.isOdd ? imageWidget : textWidget,
+                  Expanded(child: index.isEven ? imageWidget : textWidget),
+                  Expanded(child: index.isOdd ? imageWidget : textWidget),
                 ],
               );
               return InkWell(
@@ -99,9 +100,10 @@ class MainWorkBody extends StatelessWidget {
                           Animation<double> secondaryAnimation) {
                         return Dialog(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5.w,
-                            height: MediaQuery.of(context).size.height * 0.5.w,
-                            child: Material(child: item),
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            child: Material(
+                                color: AppColors.secondaryColor, child: item),
                           ),
                         );
                       });

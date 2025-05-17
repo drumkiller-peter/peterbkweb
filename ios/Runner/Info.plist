@@ -45,5 +45,12 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- External Added -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+  		<string>instagram</string>
+  		<string>mailto</string>
+	</array>
 </dict>
 </plist>
