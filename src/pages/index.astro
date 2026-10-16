@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { profile, featured, otherWork, experience, skills, education } from '../data/profile';
+import portrait from '../assets/portrait.jpg';
 
 const title = `${profile.name}, ${profile.role}`;
 const description =
@@ -37,14 +38,25 @@ const year = new Date().getFullYear();
 
   <main id="main">
     <section class="intro wrap" aria-labelledby="intro-title">
-      <p class="eyebrow">{profile.role} · {profile.location}</p>
-      <h1 id="intro-title">
-        I build Flutter apps that run on <em>every screen</em>, and the Python services they talk to.
-      </h1>
-      <p class="lede">{profile.summary}</p>
-      <div class="actions">
-        <a class="button" href={`mailto:${profile.email}`}>Email me</a>
-        <a class="text-link" href={profile.resume} download>Résumé (PDF, 155 KB)</a>
+      <Image
+        class="portrait"
+        src={portrait}
+        alt="Portrait of Peter BK"
+        widths={[160, 320, 640]}
+        sizes="(min-width: 900px) 300px, 128px"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="intro-text">
+        <p class="eyebrow">{profile.role} · {profile.location}</p>
+        <h1 id="intro-title">
+          I build Flutter apps that run on <em>every screen</em>, and the Python services they talk to.
+        </h1>
+        <p class="lede">{profile.summary}</p>
+        <div class="actions">
+          <a class="button" href={`mailto:${profile.email}`}>Email me</a>
+          <a class="text-link" href={profile.resume} download>Résumé (PDF, 155 KB)</a>
+        </div>
       </div>
     </section>
 

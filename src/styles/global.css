@@ -248,7 +248,33 @@ a { color: inherit; }
 
 /* ---------- Intro ---------- */
 .intro {
+  display: grid;
+  gap: var(--s4);
   padding-block: var(--s8) var(--s12);
+}
+
+.portrait {
+  width: 128px;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--rule);
+}
+
+/* Desktop: portrait sits in the empty space to the right of the headline */
+@media (min-width: 900px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr) clamp(240px, 24vw, 300px);
+    column-gap: var(--s8);
+    align-items: start;
+  }
+  .portrait {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    margin-top: var(--s4);
+  }
 }
 
 .intro h1 {
