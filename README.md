@@ -1,16 +1,29 @@
-# peterbk
+# peterbk.com.np
 
-A new Flutter project.
+Personal portfolio for Peter BK. Static site built with [Astro](https://astro.build). The only client-side JavaScript is the light/dark theme toggle, which follows the OS setting until the visitor picks a theme and then remembers it.
 
-## Getting Started
+## Develop
 
-This project is a starting point for a Flutter application.
+```sh
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # outputs to dist/
+npm run preview  # serve dist/ locally
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Editing content
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+All text lives in `src/data/profile.ts`: summary, projects, experience, skills, education.
+The page template is `src/pages/index.astro`; styles and design tokens are in `src/styles/global.css`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To update the résumé, replace `public/Peter-BK-Resume.pdf` (keep the filename).
+
+If you change the headline, also update the text in `scripts/make-images.mjs` and run
+`node scripts/make-images.mjs` to regenerate the social preview image (`public/og.png`).
+
+## Deploy
+
+`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to `master`.
+`public/CNAME` documents the custom domain `www.peterbk.com.np` (the domain itself is set in the repo's Pages settings).
+
+In the repository settings, **Pages → Source** must be set to **GitHub Actions**.
