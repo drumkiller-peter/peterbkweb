@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import { profile, featured, otherWork, experience, skills, education } from '../data/profile';
 import portrait from '../assets/portrait.jpg';
 
-const title = `${profile.name}, ${profile.role}`;
+const title = `${profile.name}, ${profile.role} in Nepal`;
 const description =
   'Flutter and Python developer in Nepal. Five years shipping cross-platform apps for mobile, web, desktop and wearables, plus the FastAPI backends behind them.';
 const year = new Date().getFullYear();
@@ -37,7 +37,7 @@ const year = new Date().getFullYear();
   </header>
 
   <main id="main">
-    <section class="intro wrap" aria-labelledby="intro-title">
+    <section class="intro with-portrait wrap" aria-labelledby="intro-title">
       <Image
         class="portrait"
         src={portrait}
