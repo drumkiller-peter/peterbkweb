@@ -249,17 +249,69 @@ a { color: inherit; }
 /* ---------- Intro ---------- */
 .intro {
   display: grid;
-  gap: var(--s4);
-  padding-block: var(--s8) var(--s12);
+  padding-block: var(--s4) var(--s12);
 }
 
 .portrait {
-  width: 128px;
   height: auto;
-  aspect-ratio: 4 / 5;
   object-fit: cover;
-  border-radius: 4px;
   background: var(--rule);
+}
+
+/* Phones and tablets: flatten .intro-text so its children join the .intro grid */
+@media (max-width: 899px) {
+  .intro-text { display: contents; }
+  .portrait { grid-area: photo; }
+  .intro .eyebrow { grid-area: eyebrow; }
+  .intro h1 { grid-area: h1; }
+  .intro .lede { grid-area: lede; }
+  .intro .actions { grid-area: actions; }
+}
+
+/* Phones: a small round avatar sits beside the role and location, like a byline */
+@media (max-width: 599px) {
+  .intro {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'photo eyebrow'
+      'h1 h1'
+      'lede lede'
+      'actions actions';
+    column-gap: var(--s2);
+    align-items: center;
+  }
+  .portrait {
+    width: 64px;
+    aspect-ratio: 1;
+    object-position: 50% 30%; /* keep the face centred in the circle crop */
+    border-radius: 50%;
+    outline: 1px solid var(--accent-soft);
+    outline-offset: 3px;
+    margin: 4px; /* room for the ring */
+  }
+  .intro .eyebrow > span { display: block; }
+  .intro .eyebrow .sep { display: none; }
+}
+
+/* Tablets: portrait beside the headline, paragraph runs full width below */
+@media (min-width: 600px) and (max-width: 899px) {
+  .intro {
+    grid-template-columns: minmax(0, 1fr) clamp(150px, 24vw, 210px);
+    grid-template-areas:
+      'eyebrow photo'
+      'h1 photo'
+      'lede lede'
+      'actions actions';
+    column-gap: var(--s4);
+    align-items: start;
+    padding-top: var(--s6);
+  }
+  .portrait {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 4px;
+    margin-top: var(--s1);
+  }
 }
 
 /* Desktop: portrait sits in the empty space to the right of the headline */
@@ -268,12 +320,15 @@ a { color: inherit; }
     grid-template-columns: minmax(0, 1fr) clamp(240px, 24vw, 300px);
     column-gap: var(--s8);
     align-items: start;
+    padding-top: var(--s8);
   }
   .portrait {
     grid-column: 2;
     grid-row: 1;
     width: 100%;
     margin-top: var(--s4);
+    aspect-ratio: 4 / 5;
+    border-radius: 4px;
   }
 }
 

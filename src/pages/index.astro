@@ -43,12 +43,12 @@ const year = new Date().getFullYear();
         src={portrait}
         alt="Portrait of Peter BK"
         widths={[160, 320, 640]}
-        sizes="(min-width: 900px) 300px, 128px"
+        sizes="(min-width: 900px) 300px, (min-width: 600px) 210px, 64px"
         loading="eager"
         fetchpriority="high"
       />
       <div class="intro-text">
-        <p class="eyebrow">{profile.role} · {profile.location}</p>
+        <p class="eyebrow"><span>{profile.role}</span><span class="sep"> · </span><span>{profile.location}</span></p>
         <h1 id="intro-title">
           I build Flutter apps that run on <em>every screen</em>, and the Python services they talk to.
         </h1>
